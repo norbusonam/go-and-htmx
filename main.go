@@ -25,7 +25,8 @@ func main() {
 	// parse templates
 	tmpl := template.Must(template.ParseFiles("index.html"))
 
-	rootHandler := func(w http.ResponseWriter, r *http.Request) {
+	// handle root
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		resp, err := http.Get("https://jsonplaceholder.typicode.com/posts")
 		if err != nil {
 			log.Fatal(err)
@@ -40,9 +41,7 @@ func main() {
 			log.Fatal(err)
 		}
 		tmpl.Execute(w, posts)
-	}
-
-	http.HandleFunc("/", rootHandler)
+	})
 
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 
