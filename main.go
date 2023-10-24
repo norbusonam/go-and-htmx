@@ -1,8 +1,6 @@
 package main
 
 import (
-	"encoding/json"
-	"io"
 	"log"
 	"net/http"
 	"os"
@@ -10,10 +8,13 @@ import (
 )
 
 type Post struct {
-	UserId int    `json:"userId"`
-	Id     int    `json:"id"`
-	Title  string `json:"title"`
-	Body   string `json:"body"`
+	Id    int    `json:"id"`
+	Title string `json:"title"`
+	Body  string `json:"body"`
+}
+
+type Database struct {
+	Posts []Post
 }
 
 func main() {
@@ -22,24 +23,14 @@ func main() {
 		port = "8080"
 	}
 
+	db := Database{}
+
 	// parse templates
 	tmpl := template.Must(template.ParseFiles("index.html"))
 
 	// handle root
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		resp, err := http.Get("https://jsonplaceholder.typicode.com/posts")
-		if err != nil {
-			log.Fatal(err)
-		}
-		b, err := io.ReadAll(resp.Body)
-		if err != nil {
-			log.Fatal(err)
-		}
-		posts := []Post{}
-		err = json.Unmarshal(b, &posts)
-		if err != nil {
-			log.Fatal(err)
-		}
+		posts := db.Posts
 		tmpl.Execute(w, posts)
 	})
 
