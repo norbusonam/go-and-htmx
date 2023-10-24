@@ -8,9 +8,9 @@ import (
 )
 
 type Post struct {
-	Id    int    `json:"id"`
-	Title string `json:"title"`
-	Body  string `json:"body"`
+	Id    int
+	Title string
+	Body  string
 }
 
 type Database struct {
