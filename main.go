@@ -22,8 +22,10 @@ func main() {
 		port = "8080"
 	}
 
+	// parse templates
+	tmpl := template.Must(template.ParseFiles("index.html"))
+
 	rootHandler := func(w http.ResponseWriter, r *http.Request) {
-		tmpl := template.Must(template.ParseFiles("index.html"))
 		resp, err := http.Get("https://jsonplaceholder.typicode.com/posts")
 		if err != nil {
 			log.Fatal(err)
