@@ -30,8 +30,18 @@ func main() {
 
 	// handle root
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		posts := db.Posts
-		tmpl.Execute(w, posts)
+		tmpl.Execute(w, db.Posts)
+	})
+
+	// create post
+	http.HandleFunc("/posts", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == "POST" {
+			db.Posts = append(db.Posts, Post{
+				Id:    len(db.Posts) + 1,
+				Title: r.FormValue("title"),
+				Body:  r.FormValue("body"),
+			})
+		}
 	})
 
 	log.Fatal(http.ListenAndServe(":"+port, nil))
