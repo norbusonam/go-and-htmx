@@ -26,7 +26,7 @@ func main() {
 	db := Database{}
 
 	// parse templates
-	tmpl := template.Must(template.ParseFiles("index.html"))
+	tmpl := template.Must(template.ParseFiles("./templates/index.html"))
 
 	// handle root
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
