@@ -38,8 +38,8 @@ func main() {
 		if r.Method == "POST" {
 			db.Posts = append(db.Posts, Post{
 				Id:    len(db.Posts) + 1,
-				Title: r.FormValue("title"),
-				Body:  r.FormValue("body"),
+				Title: r.PostFormValue("title"),
+				Body:  r.PostFormValue("body"),
 			})
 		}
 	})
