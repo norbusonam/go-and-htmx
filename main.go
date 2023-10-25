@@ -1,20 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"text/template"
 )
 
-type Post struct {
-	Id    int
-	Title string
-	Body  string
-}
-
-type Database struct {
-	Posts []Post
+type ViewData struct {
+	Counter int
 }
 
 func main() {
@@ -23,25 +18,28 @@ func main() {
 		port = "8080"
 	}
 
-	db := Database{}
-
-	// parse templates
-	tmpl := template.Must(template.ParseFiles("./templates/index.html"))
-
-	// handle root
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		tmpl.Execute(w, db.Posts)
+	// ==================== COUNTER ====================
+	counter := 0
+	http.HandleFunc("/counter/increment", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == "PUT" {
+			counter++
+			w.Write([]byte(fmt.Sprintf("%d", counter)))
+		}
 	})
 
-	// create post
-	http.HandleFunc("/posts", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == "POST" {
-			db.Posts = append(db.Posts, Post{
-				Id:    len(db.Posts) + 1,
-				Title: r.PostFormValue("title"),
-				Body:  r.PostFormValue("body"),
-			})
+	http.HandleFunc("/counter/decrement", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == "PUT" {
+			counter--
+			w.Write([]byte(fmt.Sprintf("%d", counter)))
 		}
+	})
+
+	// ==================== INDEX ====================
+	tmpl := template.Must(template.ParseFiles("./templates/index.html"))
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		tmpl.Execute(w, ViewData{
+			Counter: counter,
+		})
 	})
 
 	log.Fatal(http.ListenAndServe(":"+port, nil))

@@ -8,24 +8,19 @@
   <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="space-y-4 p-4 max-w-xl m-auto">
-    <h1 class="text-3xl text-center">Posts</h1>
-    {{ range . }}
-      <div class="p-4 border rounded">
-        <h2 class="text-lg font-bold">{{ .Title }}</h2>
-        <p class="text-gray-700">{{ .Body }}</p>
-      </div>
-    {{ end }}
-    {{ if not . }}
-      <p class="text-center">No posts yet</p>
-    {{ end }}
-    <form hx-post="/posts">
-      <div class="flex space-x-2">
-        <input type="text" name="title" placeholder="Title" class="border p-2 rounded">
-        <input type="text" name="body" placeholder="Body" class="border p-2 rounded">
-        <button class="border p-2 rounded" type="submit">Create</button>
-      </div>
-    </form>
+  <div class="max-w-xl space-y-4 pt-4 m-auto">
+
+    <!-- page header -->
+    <h1 class="text-3xl text-center">Go and htmx Playground</h1>
+
+    <!-- simple counter -->
+    <div>
+      <h2 class="text-xl underline">Simple Counter</h2>
+      <p id="counter">{{ .Counter }}</p>
+      <button hx-put="counter/increment" hx-target="#counter" class="hover:bg-green-300 bg-neutral-200 p-2 rounded-md transition-color">increment</button>
+      <button hx-put="counter/decrement" hx-target="#counter " class="hover:bg-red-300 bg-neutral-200 p-2 rounded-md transition-color">decrement</button>
+    </div>
   </div>
+
 </body>
 </html>
