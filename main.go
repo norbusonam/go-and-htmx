@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"text/template"
 )
 
@@ -23,14 +23,14 @@ func main() {
 	http.HandleFunc("/counter/increment", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "PUT" {
 			counter++
-			w.Write([]byte(fmt.Sprintf("%d", counter)))
+			w.Write([]byte(strconv.Itoa(counter)))
 		}
 	})
 
 	http.HandleFunc("/counter/decrement", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "PUT" {
 			counter--
-			w.Write([]byte(fmt.Sprintf("%d", counter)))
+			w.Write([]byte(strconv.Itoa(counter)))
 		}
 	})
 
