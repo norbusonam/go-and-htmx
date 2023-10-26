@@ -15,14 +15,19 @@ type ViewData struct {
 }
 
 func main() {
+	// set port
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
 
+	// parse template
 	tmpl := template.Must(template.ParseFiles("./templates/index.html"))
 
+	// =================================================
 	// ==================== COUNTER ====================
+	// =================================================
+
 	counter := 0
 	http.HandleFunc("/counter/increment", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "PUT" {
@@ -38,7 +43,10 @@ func main() {
 		}
 	})
 
+	// =======================================================
 	// ==================== LIST CONTROLS ====================
+	// =======================================================
+
 	listItems := []int{}
 	nextListItem := 1
 	http.HandleFunc("/list", func(w http.ResponseWriter, r *http.Request) {
@@ -79,7 +87,10 @@ func main() {
 		}
 	})
 
+	// ===============================================
 	// ==================== INDEX ====================
+	// ===============================================
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		tmpl.Execute(w, ViewData{
 			Counter:   counter,
