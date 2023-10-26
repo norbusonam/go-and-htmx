@@ -20,7 +20,26 @@
       <button hx-put="counter/decrement" hx-target="#counter" class="hover:bg-red-300 bg-neutral-200 p-2 rounded-md transition-colors">decrement</button>
       <button hx-put="counter/increment" hx-target="#counter" class="hover:bg-green-300 bg-neutral-200 p-2 rounded-md transition-colors">increment</button>
     </div>
-  </div>
 
+    <!-- list controls -->
+    <div>
+      <h2 class="text-xl underline">List Controls</h2>
+      <div id="list">
+        {{ block "list" .  }}
+          {{ range .ListItems }}
+            <div>
+              <p>{{ . }}</p>
+            </div>
+          {{ else }}
+            <p>No items in list</p>
+          {{ end }}
+        {{ end }}
+      </div>
+      <button hx-post="list" hx-target="#list" class="hover:bg-green-300 bg-neutral-200 p-2 rounded-md transition-colors">add</button>
+    </div>
+
+    </div>
+
+  </div>
 </body>
 </html>

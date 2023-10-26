@@ -1,15 +1,16 @@
 package main
 
 import (
+	"html/template"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
-	"text/template"
 )
 
 type ViewData struct {
-	Counter int
+	Counter   int
+	ListItems []int
 }
 
 func main() {
@@ -17,6 +18,8 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
+
+	tmpl := template.Must(template.ParseFiles("./templates/index.html"))
 
 	// ==================== COUNTER ====================
 	counter := 0
@@ -34,11 +37,24 @@ func main() {
 		}
 	})
 
+	// ==================== LIST CONTROLS ====================
+	listItems := []int{}
+	nextListItem := 1
+	http.HandleFunc("/list", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == "POST" {
+			listItems = append(listItems, nextListItem)
+			nextListItem++
+			tmpl.ExecuteTemplate(w, "list", ViewData{
+				ListItems: listItems,
+			})
+		}
+	})
+
 	// ==================== INDEX ====================
-	tmpl := template.Must(template.ParseFiles("./templates/index.html"))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		tmpl.Execute(w, ViewData{
-			Counter: counter,
+			Counter:   counter,
+			ListItems: listItems,
 		})
 	})
 
