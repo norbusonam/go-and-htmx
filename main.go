@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 )
 
 type ViewData struct {
@@ -44,6 +45,24 @@ func main() {
 		if r.Method == "POST" {
 			listItems = append(listItems, nextListItem)
 			nextListItem++
+			tmpl.ExecuteTemplate(w, "list", ViewData{
+				ListItems: listItems,
+			})
+		}
+	})
+
+	http.HandleFunc("/list/", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == "DELETE" {
+			itemToDelete, err := strconv.Atoi(strings.Split(r.URL.Path, "/")[2])
+			if err != nil {
+				log.Fatal(err)
+			}
+			for i, item := range listItems {
+				if item == itemToDelete {
+					listItems = append(listItems[:i], listItems[i+1:]...)
+					break
+				}
+			}
 			tmpl.ExecuteTemplate(w, "list", ViewData{
 				ListItems: listItems,
 			})
