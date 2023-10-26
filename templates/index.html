@@ -24,12 +24,12 @@
     <!-- list controls -->
     <div>
       <h2 class="text-xl underline">List Controls</h2>
-      <div id="list">
+      <div id="list" class="space-y-2">
         {{ block "list" .  }}
           {{ range .ListItems }}
-            <div>
+            <div class="flex justify-between">
               <p>{{ . }}</p>
-              <button hx-delete="list/{{ . }}" hx-target="#list" class="hover:bg-red-300 bg-neutral-200 p-2 rounded-md transition-colors">delete</button>
+              <button hx-delete="list/{{ . }}" hx-target="#list" class="hover:bg-red-300 bg-neutral-200 p-1 rounded-md transition-colors">delete</button>
             </div>
           {{ else }}
             <p>No items in list</p>
