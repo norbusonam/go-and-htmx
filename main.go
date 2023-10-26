@@ -69,6 +69,16 @@ func main() {
 		}
 	})
 
+	http.HandleFunc("/list/reset", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == "POST" {
+			listItems = []int{}
+			nextListItem = 1
+			tmpl.ExecuteTemplate(w, "list", ViewData{
+				ListItems: listItems,
+			})
+		}
+	})
+
 	// ==================== INDEX ====================
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		tmpl.Execute(w, ViewData{
