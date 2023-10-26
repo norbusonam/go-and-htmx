@@ -10,8 +10,9 @@ import (
 )
 
 type ViewData struct {
-	Counter   int
-	ListItems []int
+	Counter       int
+	ListItems     []int
+	SearchResults []string
 }
 
 func main() {
@@ -83,6 +84,29 @@ func main() {
 			nextListItem = 1
 			tmpl.ExecuteTemplate(w, "list", ViewData{
 				ListItems: listItems,
+			})
+		}
+	})
+
+	// =======================================================
+	// ==================== ACTIVE SEARCH ====================
+	// =======================================================
+
+	names := []string{"Norbu", "Ryan", "Ben", "Adam", "Christian", "Bea"}
+
+	http.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == "GET" {
+			query := r.URL.Query().Get("query")
+			matches := []string{}
+			if query != "" {
+				for _, name := range names {
+					if strings.Contains(strings.ToLower(name), strings.ToLower(query)) {
+						matches = append(matches, name)
+					}
+				}
+			}
+			tmpl.ExecuteTemplate(w, "search-results", ViewData{
+				SearchResults: matches,
 			})
 		}
 	})

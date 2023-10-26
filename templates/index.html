@@ -40,6 +40,25 @@
       <button hx-post="list/reset" hx-target="#list" class="hover:bg-red-300 bg-neutral-200 p-2 rounded-md transition-colors">reset</button>
     </div>
 
+    <!-- active search -->
+    <div>
+      <h2 class="text-xl underline">Active Search</h2>
+      <div>
+        <input type="text" name="query" hx-get="search" hx-trigger="keyup" hx-target="#search-results" class="border border-gray-300 p-1 rounded-md transition-colors">
+        <div id="search-results" class="space-y-2">
+          {{ block "search-results" . }}
+            {{ range .SearchResults }}
+              <div class="flex justify-between">
+                <p>{{ . }}</p>
+              </div>
+            {{ else }}
+              <p>No results</p>
+            {{ end }}
+          {{ end }}
+        </div>
+      </div>
+    </div>
+
   </div>
 </body>
 </html>
