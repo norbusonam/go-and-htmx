@@ -30,6 +30,7 @@ func main() {
 	// =================================================
 
 	counter := 0
+
 	http.HandleFunc("/counter/increment", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "PUT" {
 			counter++
@@ -50,6 +51,7 @@ func main() {
 
 	listItems := []int{}
 	nextListItem := 1
+
 	http.HandleFunc("/list", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "POST" {
 			listItems = append(listItems, nextListItem)
@@ -122,6 +124,7 @@ func main() {
 		})
 	})
 
+	// start server
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 
 }
