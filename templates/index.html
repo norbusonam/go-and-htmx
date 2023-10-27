@@ -15,10 +15,10 @@
     <!-- navigation -->
     <div class="flex">
       <div class="basis-1/4 space-y-2">
-        <a href="/" class="underline block">Welcome</a>
-        <a href="/simple-counter" class="underline block">Simple Counter</a>
-        <a href="/list-controls" class="underline block">List Controls</a>
-        <a href="/active-search" class="underline block">Active Search</a>
+        <a href="/" class="block {{ if eq .Page "welcome" }}font-bold{{ end }}">Welcome</a>
+        <a href="/simple-counter" class="block {{ if eq .Page "simple-counter" }}font-bold{{ end }}">Simple Counter</a>
+        <a href="/list-controls" class="block {{ if eq .Page "list-controls" }}font-bold{{ end }}">List Controls</a>
+        <a href="/active-search" class="block {{ if eq .Page "active-search" }}font-bold{{ end }}">Active Search</a>
       </div>
 
       <div class="basis-3/4">
