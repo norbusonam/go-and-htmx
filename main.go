@@ -13,6 +13,7 @@ type ViewData struct {
 	Counter       int
 	ListItems     []int
 	SearchResults []string
+	Page          string
 }
 
 func main() {
@@ -117,10 +118,33 @@ func main() {
 	// ==================== INDEX ====================
 	// ===============================================
 
+	// welcome
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		tmpl.Execute(w, ViewData{
-			Counter:   counter,
+			Page: "welcome",
+		})
+	})
+
+	// simple counter
+	http.HandleFunc("/simple-counter", func(w http.ResponseWriter, r *http.Request) {
+		tmpl.Execute(w, ViewData{
+			Page:    "simple-counter",
+			Counter: counter,
+		})
+	})
+
+	// list controls
+	http.HandleFunc("/list-controls", func(w http.ResponseWriter, r *http.Request) {
+		tmpl.Execute(w, ViewData{
+			Page:      "list-controls",
 			ListItems: listItems,
+		})
+	})
+
+	// active search
+	http.HandleFunc("/active-search", func(w http.ResponseWriter, r *http.Request) {
+		tmpl.Execute(w, ViewData{
+			Page: "active-search",
 		})
 	})
 
