@@ -63,7 +63,7 @@
             {{ range .ListItems }}
               <div class="flex justify-between">
                 <p>{{ . }}</p>
-                <button hx-delete="list/{{ . }}" hx-target="#list" class="hover:bg-neutral-300 bg-neutral-200 p-2rounded-md transition-colors">delete</button>
+                <button hx-delete="list/{{ . }}" hx-target="#list" class="hover:bg-neutral-300 bg-neutral-200 p-2 rounded-md transition-colors">delete</button>
               </div>
             {{ else }}
               <p>No items in list</p>
