@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="dark:bg-black dark:invert">
   <div class="max-w-xl space-y-4 pt-4 m-auto">
 
     <!-- page header -->
@@ -17,8 +17,8 @@
     <div>
       <h2 class="text-xl underline">Simple Counter</h2>
       <p id="counter">{{ .Counter }}</p>
-      <button hx-put="counter/decrement" hx-target="#counter" class="hover:bg-red-300 bg-neutral-200 p-2 rounded-md transition-colors">decrement</button>
-      <button hx-put="counter/increment" hx-target="#counter" class="hover:bg-green-300 bg-neutral-200 p-2 rounded-md transition-colors">increment</button>
+      <button hx-put="counter/decrement" hx-target="#counter" class="hover:bg-neutral-300 bg-neutral-200 p-2 rounded-md transition-colors">decrement</button>
+      <button hx-put="counter/increment" hx-target="#counter" class="hover:bg-neutral-300 bg-neutral-200 p-2 rounded-md transition-colors">increment</button>
     </div>
 
     <!-- list controls -->
@@ -29,15 +29,15 @@
           {{ range .ListItems }}
             <div class="flex justify-between">
               <p>{{ . }}</p>
-              <button hx-delete="list/{{ . }}" hx-target="#list" class="hover:bg-red-300 bg-neutral-200 p-1 rounded-md transition-colors">delete</button>
+              <button hx-delete="list/{{ . }}" hx-target="#list" class="hover:bg-neutral-300 bg-neutral-200 p-2rounded-md transition-colors">delete</button>
             </div>
           {{ else }}
             <p>No items in list</p>
           {{ end }}
         {{ end }}
       </div>
-      <button hx-post="list" hx-target="#list" class="hover:bg-green-300 bg-neutral-200 p-2 rounded-md transition-colors">add</button>
-      <button hx-post="list/reset" hx-target="#list" class="hover:bg-red-300 bg-neutral-200 p-2 rounded-md transition-colors">reset</button>
+      <button hx-post="list" hx-target="#list" class="hover:bg-neutral-300 bg-neutral-200 p-2 rounded-md transition-colors">add</button>
+      <button hx-post="list/reset" hx-target="#list" class="hover:bg-neutral-300 bg-neutral-200 p-2 rounded-md transition-colors">reset</button>
     </div>
 
     <!-- active search -->
