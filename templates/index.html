@@ -39,7 +39,6 @@
     <!-- welcome -->
     {{define "welcome"}}
       <div>
-        <h2 class="text-xl underline">Welcome</h2>
         <p>This website and all the examples within it are written in <a href="https://golang.org/" class="underline">Go</a> and <a href="https://htmx.org/" class="underline">htmx</a>. The styling was done with <a href="https://tailwindcss.com/" class="underline">tailwindcss</a>. Check out <a href="https://github.com/norbusonam/go-and-htmx" class="underline">this github repo</a> for the code.</p>
       </div>
     {{end}}
@@ -47,7 +46,6 @@
     <!-- simple counter -->
     {{define "simple-counter"}}
       <div>
-        <h2 class="text-xl underline">Simple Counter</h2>
         <p id="counter">{{ .Counter }}</p>
         <button hx-put="counter/decrement" hx-target="#counter" class="hover:bg-neutral-300 bg-neutral-200 p-2 rounded-md transition-colors">decrement</button>
         <button hx-put="counter/increment" hx-target="#counter" class="hover:bg-neutral-300 bg-neutral-200 p-2 rounded-md transition-colors">increment</button>
@@ -57,7 +55,6 @@
     <!-- list controls -->
     {{define "list-controls"}}
       <div>
-        <h2 class="text-xl underline">List Controls</h2>
         <div id="list" class="space-y-2">
           {{ block "list" .  }}
             {{ range .ListItems }}
@@ -78,7 +75,6 @@
     <!-- active search -->
     {{define "active-search"}}
       <div>
-        <h2 class="text-xl underline">Active Search</h2>
         <div>
           <input type="text" name="query" hx-get="search" hx-trigger="keyup" hx-target="#search-results" class="border border-gray-300 p-1 rounded-md transition-colors">
           <div id="search-results" class="space-y-2">
