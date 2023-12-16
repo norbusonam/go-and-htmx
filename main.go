@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -14,6 +15,10 @@ type ViewData struct {
 	ListItems     []int
 	SearchResults []string
 	Page          string
+}
+
+func logRequest(r *http.Request) {
+	fmt.Printf("%s %s\n", r.Method, r.URL.Path)
 }
 
 func main() {
@@ -33,6 +38,7 @@ func main() {
 	counter := 0
 
 	http.HandleFunc("/counter/increment", func(w http.ResponseWriter, r *http.Request) {
+		logRequest(r)
 		if r.Method == "PUT" {
 			counter++
 			w.Write([]byte(strconv.Itoa(counter)))
@@ -40,6 +46,7 @@ func main() {
 	})
 
 	http.HandleFunc("/counter/decrement", func(w http.ResponseWriter, r *http.Request) {
+		logRequest(r)
 		if r.Method == "PUT" {
 			counter--
 			w.Write([]byte(strconv.Itoa(counter)))
@@ -54,6 +61,7 @@ func main() {
 	nextListItem := 1
 
 	http.HandleFunc("/list", func(w http.ResponseWriter, r *http.Request) {
+		logRequest(r)
 		if r.Method == "POST" {
 			listItems = append(listItems, nextListItem)
 			nextListItem++
@@ -64,6 +72,7 @@ func main() {
 	})
 
 	http.HandleFunc("/list/", func(w http.ResponseWriter, r *http.Request) {
+		logRequest(r)
 		if r.Method == "DELETE" {
 			itemToDelete, err := strconv.Atoi(strings.Split(r.URL.Path, "/")[2])
 			if err != nil {
@@ -82,6 +91,7 @@ func main() {
 	})
 
 	http.HandleFunc("/list/reset", func(w http.ResponseWriter, r *http.Request) {
+		logRequest(r)
 		if r.Method == "POST" {
 			listItems = []int{}
 			nextListItem = 1
@@ -98,6 +108,7 @@ func main() {
 	names := []string{"Norbu", "Ryan", "Ben", "Adam", "Christian", "Bea"}
 
 	http.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
+		logRequest(r)
 		if r.Method == "GET" {
 			query := r.URL.Query().Get("query")
 			matches := []string{}
@@ -120,6 +131,7 @@ func main() {
 
 	// welcome
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		logRequest(r)
 		tmpl.Execute(w, ViewData{
 			Page: "welcome",
 		})
@@ -127,6 +139,7 @@ func main() {
 
 	// simple counter
 	http.HandleFunc("/simple-counter", func(w http.ResponseWriter, r *http.Request) {
+		logRequest(r)
 		tmpl.Execute(w, ViewData{
 			Page:    "simple-counter",
 			Counter: counter,
@@ -135,6 +148,7 @@ func main() {
 
 	// list controls
 	http.HandleFunc("/list-controls", func(w http.ResponseWriter, r *http.Request) {
+		logRequest(r)
 		tmpl.Execute(w, ViewData{
 			Page:      "list-controls",
 			ListItems: listItems,
@@ -143,6 +157,7 @@ func main() {
 
 	// active search
 	http.HandleFunc("/active-search", func(w http.ResponseWriter, r *http.Request) {
+		logRequest(r)
 		tmpl.Execute(w, ViewData{
 			Page: "active-search",
 		})
