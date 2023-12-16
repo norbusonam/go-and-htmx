@@ -42,6 +42,8 @@ func main() {
 		if r.Method == "PUT" {
 			counter++
 			w.Write([]byte(strconv.Itoa(counter)))
+		} else {
+			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
 	})
 
@@ -50,6 +52,8 @@ func main() {
 		if r.Method == "PUT" {
 			counter--
 			w.Write([]byte(strconv.Itoa(counter)))
+		} else {
+			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
 	})
 
@@ -68,6 +72,8 @@ func main() {
 			tmpl.ExecuteTemplate(w, "list", ViewData{
 				ListItems: listItems,
 			})
+		} else {
+			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
 	})
 
@@ -87,6 +93,8 @@ func main() {
 			tmpl.ExecuteTemplate(w, "list", ViewData{
 				ListItems: listItems,
 			})
+		} else {
+			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
 	})
 
@@ -98,6 +106,8 @@ func main() {
 			tmpl.ExecuteTemplate(w, "list", ViewData{
 				ListItems: listItems,
 			})
+		} else {
+			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
 	})
 
@@ -122,6 +132,8 @@ func main() {
 			tmpl.ExecuteTemplate(w, "search-results", ViewData{
 				SearchResults: matches,
 			})
+		} else {
+
 		}
 	})
 
@@ -136,6 +148,8 @@ func main() {
 			tmpl.Execute(w, ViewData{
 				Page: "welcome",
 			})
+		} else {
+			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
 	})
 
@@ -147,6 +161,8 @@ func main() {
 				Page:    "simple-counter",
 				Counter: counter,
 			})
+		} else {
+			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
 	})
 
@@ -158,6 +174,8 @@ func main() {
 				Page:      "list-controls",
 				ListItems: listItems,
 			})
+		} else {
+			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
 	})
 
@@ -168,6 +186,8 @@ func main() {
 			tmpl.Execute(w, ViewData{
 				Page: "active-search",
 			})
+		} else {
+			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
 	})
 
