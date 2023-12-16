@@ -132,35 +132,43 @@ func main() {
 	// welcome
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		logRequest(r)
-		tmpl.Execute(w, ViewData{
-			Page: "welcome",
-		})
+		if r.Method == "GET" {
+			tmpl.Execute(w, ViewData{
+				Page: "welcome",
+			})
+		}
 	})
 
 	// simple counter
 	http.HandleFunc("/simple-counter", func(w http.ResponseWriter, r *http.Request) {
 		logRequest(r)
-		tmpl.Execute(w, ViewData{
-			Page:    "simple-counter",
-			Counter: counter,
-		})
+		if r.Method == "GET" {
+			tmpl.Execute(w, ViewData{
+				Page:    "simple-counter",
+				Counter: counter,
+			})
+		}
 	})
 
 	// list controls
 	http.HandleFunc("/list-controls", func(w http.ResponseWriter, r *http.Request) {
 		logRequest(r)
-		tmpl.Execute(w, ViewData{
-			Page:      "list-controls",
-			ListItems: listItems,
-		})
+		if r.Method == "GET" {
+			tmpl.Execute(w, ViewData{
+				Page:      "list-controls",
+				ListItems: listItems,
+			})
+		}
 	})
 
 	// active search
 	http.HandleFunc("/active-search", func(w http.ResponseWriter, r *http.Request) {
 		logRequest(r)
-		tmpl.Execute(w, ViewData{
-			Page: "active-search",
-		})
+		if r.Method == "GET" {
+			tmpl.Execute(w, ViewData{
+				Page: "active-search",
+			})
+		}
 	})
 
 	// start server
