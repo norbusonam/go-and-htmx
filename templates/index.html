@@ -17,22 +17,22 @@
       <div class="basis-1/4 space-y-2" hx-boost="true">
         <a 
           {{ if ne .Page "welcome" }}href="/welcome"{{ end }}
-          class="block {{ if eq .Page "welcome" }}font-bold cursor-pointer{{ end }}">
+          class="block hover:opacity-60 {{ if eq .Page "welcome" }}font-bold cursor-pointer{{ end }}">
           Welcome
         </a>
         <a 
           {{ if ne .Page "simple-counter" }}href="/simple-counter"{{ end }}
-          class="block {{ if eq .Page "simple-counter" }}font-bold cursor-pointer{{ end }}">
+          class="block hover:opacity-60 {{ if eq .Page "simple-counter" }}font-bold cursor-pointer{{ end }}">
           Simple Counter
         </a>
         <a 
           {{ if ne .Page "list-controls" }}href="/list-controls"{{ end }}
-          class="block {{ if eq .Page "list-controls" }}font-bold cursor-pointer{{ end }}">
+          class="block hover:opacity-60 {{ if eq .Page "list-controls" }}font-bold cursor-pointer{{ end }}">
           List Controls
         </a>
         <a
           {{ if ne .Page "active-search" }}href="/active-search"{{ end }}
-          class="block {{ if eq .Page "active-search" }}font-bold cursor-pointer{{ end }}">
+          class="block hover:opacity-60 {{ if eq .Page "active-search" }}font-bold cursor-pointer{{ end }}">
           Active Search
         </a>
       </div>
